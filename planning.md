@@ -1,10 +1,10 @@
 # Weather App — Project Plan
 
 > **Project:** Weather App  
-> **Status:** Planning completed / Development not started  
+> **Status:** Planning completed / Development in progress  
 > **Planned start date:** 10 November 2026  
 > **Target completion date:** 17 November 2026  
-> **Design direction:** Natural Sage & Cream  
+> **Design direction:** Glassmorphism — Light & Dark Mode  
 > **Weather data provider:** Open-Meteo
 
 ---
@@ -21,34 +21,47 @@ This project will help practise and apply HTML, CSS, JavaScript, DOM manipulatio
 
 ## 2. Design system
 
-### Visual direction — Natural Sage & Cream
+### Visual direction — Glassmorphism
 
-The interface should feel calm, warm, clean, and thoughtfully designed. It should have its own identity rather than looking like a copy of an existing weather website or a generic AI-generated template.
+The interface should feel modern, clean, and visually engaging, using a glassmorphism design with weather-based background photography.
 
 Design rules:
 
-- Use a warm off-white page background and muted sage surfaces.
-- Keep deep green for primary actions and important UI elements.
-- Use the warm accent sparingly.
-- Prefer clear spacing, alignment, and typography over decoration.
-- Use subtle borders and restrained shadows.
-- Avoid unnecessary gradients, glassmorphism, excessive pill shapes, and decorative cards.
-- Keep the same visual identity on desktop and mobile.
+- Use transparent glass-like surfaces for the main weather and information sections.
+- Keep the background weather image subtly visible through the cards.
+- Use soft borders, background blur, and restrained shadows.
+- Maintain readable text contrast over all background images.
+- Use consistent spacing, alignment, and typography.
+- Avoid excessive decorative elements and unnecessary cards.
+- Keep the same visual identity across desktop and mobile.
+- Support both Light Mode and Dark Mode.
 
-### Color palette
+### Light Mode color palette
 
-| Token                | HEX       | Usage                          |
-| -------------------- | --------- | ------------------------------ |
-| `--color-background` | `#F5F3ED` | Main page background           |
-| `--color-surface`    | `#E4ECE7` | Weather and information cards  |
-| `--color-primary`    | `#355E5A` | Main buttons and active states |
-| `--color-text`       | `#263C3A` | Main headings and body text    |
-| `--color-accent`     | `#D5A45B` | Small highlights               |
-| `--color-muted`      | `#647C77` | Secondary text                 |
-| `--color-border`     | `#D9E1DB` | Borders and dividers           |
-| `--color-white`      | `#FFFFFF` | Input surfaces where needed    |
+| Token                | HEX       | Usage                                  |
+| -------------------- | --------- | -------------------------------------- |
+| `--color-background` | `#F8F7F2` | Main background                        |
+| `--color-sage`       | `#A7B89F` | Glass tint and surfaces                |
+| `--color-primary`    | `#2F3E2F` | Primary buttons and important elements |
+| `--color-text`       | `#1A1F1B` | Main text and headings                 |
 
-These are initial design tokens. Check text contrast during implementation and adjust if needed.
+### Dark Mode color palette
+
+| Token                | HEX       | Usage                        |
+| -------------------- | --------- | ---------------------------- |
+| `--color-background` | `#071629` | Main background              |
+| `--color-blue`       | `#102B4C` | Glass tint and surfaces      |
+| `--color-glass`      | `#29466A` | Glass cards                  |
+| `--color-accent`     | `#F6C945` | Highlights and weather icons |
+
+**Glassmorphism implementation notes:**
+
+- Use transparent versions of the palette colors for glass surfaces.
+- Background photographs should remain faintly visible through the cards.
+- Use backdrop blur to create the frosted-glass effect.
+- Adjust transparency and text contrast depending on the background image.
+
+**Important:** These color codes are the finalized project palette. Do not replace them with the previous Natural Sage & Cream palette.
 
 ---
 
@@ -75,9 +88,9 @@ The current temperature should be the strongest visual element. Keep other text 
 
 ```text
 +--------------------------------------------------------------+
-| APP NAME                                      DATE / LOCATION |
+| APP NAME                         DATE / LOCATION / THEME      |
 +--------------------------------------------------------------+
-| [ Search for a city...                         ] [ Search ]   |
+| [ Search for a city...                         ] [ Search ]  |
 +--------------------------------------------------------------+
 |                                                              |
 | +-------------------------------+  +-----------------------+ |
@@ -86,7 +99,7 @@ The current temperature should be the strongest visual element. Keep other text 
 | |       26°                     |  | Humidity       68%    | |
 | | Partly cloudy                 |  | Wind       14 km/h    | |
 | | Feels like 28°                |  | UV index   Moderate   | |
-| | Weather icon / illustration  |  |                       | |
+| | Weather icon                  |  |                       | |
 | | High 31°          Low 21°     |  |                       | |
 | +-------------------------------+  +-----------------------+ |
 |                                                              |
@@ -124,6 +137,7 @@ The forecast may use compact cards or a horizontally scrollable row on small scr
 | Forecast        | Upcoming daily weather                             |
 | Loading state   | Show while weather data is loading                 |
 | Error state     | Explain invalid city or request failure            |
+| Theme toggle    | Switch between Light Mode and Dark Mode            |
 
 Keep the components visually consistent. Avoid creating a separate card for every small piece of information.
 
@@ -210,8 +224,9 @@ Start with this simple structure. Add more files only when there is a clear need
 | 6. Fetch logic    | Search city and request weather data    |
 | 7. DOM updates    | Display current weather and forecast    |
 | 8. Error handling | Add loading, empty, and error states    |
-| 9. Final review   | Test, polish, and write README          |
-| 10. Publish       | Push the completed project to GitHub    |
+| 9. Theme toggle   | Implement Light Mode and Dark Mode      |
+| 10. Final review  | Test, polish, and write README          |
+| 11. Publish       | Push the completed project to GitHub    |
 
 ### Progress checklist
 
@@ -224,6 +239,7 @@ Start with this simple structure. Add more files only when there is a clear need
 - [ ] Display current weather
 - [ ] Display forecast
 - [ ] Loading and error handling
+- [ ] Light/Dark Mode
 - [ ] Final testing and README
 - [ ] GitHub push
 

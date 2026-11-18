@@ -1,0 +1,12 @@
+export const cityInput = document.querySelector("#city-input");
+export const searchForm = document.querySelector("#search-form");
+export const cityLocation = document.querySelector("#city-location")
+export const searchBtn = document.querySelector("#search-btn");
+export const cityName = document.querySelector("#city-name");
+export const currentTemp = document.querySelector("#current-temp");
+export const currentWeatherIcon = document.querySelector("#current-weather-icon");
+export const weatherCondition = document.querySelector("#weather-condition");
+export const tempNumber = document.querySelector(".temp-number");
+export const feelsLike = document.querySelector("#feels-like");
+export const highTemp = document.querySelector("#high-temp");
+export const lowTemp = document.querySelector("#low-temp");

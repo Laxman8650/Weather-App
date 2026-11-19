@@ -1,10 +1,14 @@
-import { feelsLike, highTemp, lowTemp, tempNumber, weatherCondition, currentWeatherIcon} from "./dom.js";
+import { feelsLike, highTemp, lowTemp, tempNumber, weatherCondition, currentWeatherIcon, humidity, windSpeed, uvIndex, pressure} from "./dom.js";
 
  export function displayCurrentWeather(forecastData){
     tempNumber.textContent = forecastData.current.temperature_2m;
     feelsLike.textContent = forecastData.current.apparent_temperature;
     highTemp.textContent= forecastData.daily.temperature_2m_max[0];
     lowTemp.textContent=forecastData.daily.temperature_2m_min[0];
+    humidity.textContent= forecastData.current.relative_humidity_2m;
+    windSpeed.textContent= `${forecastData.current.wind_speed_10m}-km/h`;
+    uvIndex.textContent= forecastData.current.uv_index;
+    pressure.textContent= forecastData.current.surface_pressure;
 }
 
 function getWeatherCode(code){
@@ -44,11 +48,11 @@ export function getWeatherCondition(forecastData){
 }
 
 export function showWeatherIcon(code, is_day){
-  if((code === 0 || is_day === 1) && is_day === 0)
+  if((code === 0 || code === 1) && is_day === 0)
      {
      currentWeatherIcon.src = "assets/icons/night.png";
   }
-    else if((code === 1 || is_day === 0 ) && is_day === 1){
+    else if((code === 1 || code === 0 ) && is_day === 1){
         currentWeatherIcon.src = "assets/icons/sunny.png";
     }
     else if(code === 2){

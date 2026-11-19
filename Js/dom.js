@@ -10,3 +10,7 @@ export const tempNumber = document.querySelector(".temp-number");
 export const feelsLike = document.querySelector("#feels-like");
 export const highTemp = document.querySelector("#high-temp");
 export const lowTemp = document.querySelector("#low-temp");
+export const humidity = document.querySelector("#humidity");
+export const windSpeed = document.querySelector("#wind-speed");
+export const uvIndex = document.querySelector("#uv-index");
+export const pressure = document.querySelector("#pressure");

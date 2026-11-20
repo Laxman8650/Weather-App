@@ -1,7 +1,7 @@
-import { cityInput, cityName } from "./dom.js"
+import { cityInput, cityName } from "./dom.js" // city input par problem
 
 export async function getWeatherData(city){
-    const URL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=1&language=en&format=json`;
+    const URL = `https://geocoding-api.open-meteo.com/v1/search?name=${city}&count=10&language=en&countryCode=IN&format=json`;
     const response = await fetch(URL);
     const data = await response.json();
     return data;

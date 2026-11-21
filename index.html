@@ -4,66 +4,264 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Weather App</title>
+    <!-- Google Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@200..800&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
     <div class="container">
       <!-- Header -->
       <header class="header">
-        <div class="logo">
-          <img src="" alt="logo" />
-        </div>
-        <div class="controls">
-          <div id="DateType">
-            <input type="date" /><i class="fa-regular fa-calendar-days"></i>
+        <a href="#" class="logo">
+          <img src="assets/images/logo.png" alt="Weather App logo" />
+        </a>
+        <div class="header-controls">
+          <div class="current-date" id="current-date">
+            <i class="fa-regular fa-calendar-days"></i>
+            <time id="date">15/11/2026</time>
           </div>
-          <div class="location"><i class="fa-solid fa-location-dot"></i></div>
-          <button id="toggle">Dark Mode</button>
+
+          <div class="location" id="location">
+            <i class="fa-solid fa-location-dot"></i>
+            <span id="city-location">City Name</span>
+          </div>
+
+          <button type="button" id="open-search" class="open-search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+
+          <button
+            type="button"
+            class="theme-toggle"
+            id="theme-toggle"
+            aria-label="Toggle dark mode"
+          >
+            <i class="fa-solid fa-moon"></i>
+            <span></span>
+          </button>
         </div>
       </header>
 
-      <!-- Main Information -->
+      <!-- Main Content -->
       <main class="main-container">
-        <section class="search">
-          <input type="text" />
-          <button id="search-icon">
-            <i class="fa-solid fa-magnifying-glass"></i>Search
-          </button>
-        </section>
-        <section class="curr-weather">
-          <h2>CURRENT WEATHER</h2>
-          <img src="" alt="Weather-icon" />
-          <div class="weather-info">
-            <p>Feels Like:</p>
-            <p>High:</p>
-            <p>Low:</p>
-            <p>City Name:</p>
-            <p>Current Temperature:</p>
-            <p>Weather condition:</p>
+        <div class="loading">
+          <div class="spinner-element"></div>
+          <p class="loading-text">Loading Weather</p>
+        </div>
+        <section class="search-overlay">
+          <div class="search-overlay-content">
+            <div class="search-overlay-header">
+              <input
+                type="text"
+                placeholder="Search a city..."
+                class="overlay-search-input"
+              />
+              <button type="button" class="search-close-btn">✕</button>
+            </div>
+            <div class="search-results">
+              <!-- Search results will appear here -->
+            </div>
           </div>
         </section>
+
+        <!-- Current Weather Section -->
+        <section class="current-weather">
+          <div class="current-weather-content">
+            <img
+              src="assets/icons/partly-cloudy.png"
+              alt="Current weather condition"
+              class="weather-icon"
+              id="current-weather-icon"
+            />
+
+            <div class="weather-info">
+              <div class="weather-main-info">
+                <h3 id="city-name">City Name</h3>
+                <p class="current-temp" id="current-temp">
+                  <span class="temp-number">28</span>
+                  <span class="temp-unit">°C</span>
+                </p>
+                <p class="weather-condition" id="weather-condition">
+                  Weather condition
+                </p>
+              </div>
+              <div class="temp-info">
+                <p>
+                  Feels Like:
+                  <span id="feels-like"></span>
+                  <span>°C</span>
+                </p>
+                <div class="high-low">
+                  <p>
+                    High:
+                    <span id="high-temp"></span>
+                    <span>°C</span>
+                  </p>
+                  <p>
+                    Low:
+                    <span id="low-temp"></span>
+                    <span>°C</span>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <!-- Weather Details Section -->
         <section class="weather-details">
-          <div class="details">
-            <ul>
-              <li>Humidity:</li>
-              <li>Wind:</li>
-              <li>UV Index:</li>
-              <li>Pressure:</li>
-            </ul>
-          </div>
+          <dl class="details-list">
+            <div class="detail-item">
+              <div class="detail-icons">
+                <img src="assets/icons/humidity.png" alt="humidity" />
+              </div>
+              <div class="details-info">
+                <dt>Humidity</dt>
+                <dd id="humidity">--%</dd>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icons">
+                <img src="assets/icons/wind.png" alt="wind-speed" />
+              </div>
+              <div class="details-info">
+                <dt>Wind Speed</dt>
+                <dd id="wind-speed">28-- km/h</dd>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icons">
+                <img src="assets/icons/sunny.png" alt="Uv-Index" />
+              </div>
+              <div class="details-info">
+                <dt>UV Index</dt>
+                <dd id="uv-index">--</dd>
+              </div>
+            </div>
+
+            <div class="detail-item">
+              <div class="detail-icons">
+                <img
+                  src="assets/icons/pressure-gauge.png"
+                  alt="pressure-guage"
+                />
+              </div>
+              <div class="details-info">
+                <dt>Pressure</dt>
+                <span>
+                  <dd id="pressure">-- hPa</dd>
+                </span>
+              </div>
+            </div>
+          </dl>
         </section>
+
+        <!-- 5-Day Forecast Section -->
         <section class="forecast">
-          <h2>5-DAY FORECAST</h2>
-          <ul>
-            <li>Monday <i></i></li>
-            <li>Tuesday</li>
-            <li>Wednesday</li>
-            <li>Thursday</li>
-            <li>Friday</li>
+          <div class="forecast-heading">
+            <i class="fa-regular fa-calendar-days"></i>
+            <h2>5-Day Forecast</h2>
+          </div>
+
+          <ul class="forecast-list">
+            <li class="forecast-day">
+              <h3 class="forecast-date" id="day-1">Mon</h3>
+              <img
+                src="assets/icons/sunny.png"
+                alt="Sunny"
+                class="forecast-icon"
+              />
+              <p class="forecast-condition">Sunny</p>
+              <p class="forecast-temp">
+                <span class="max-temp">--°C</span>
+                /
+                <span class="min-temp">--°C</span>
+              </p>
+            </li>
+
+            <li class="forecast-day">
+              <h3 class="forecast-date" id="day-2">Tues</h3>
+              <img
+                src="assets/icons/cloud.png"
+                alt="Cloudy"
+                class="forecast-icon"
+              />
+              <p class="forecast-condition">Cloudy</p>
+              <p class="forecast-temp">
+                <span class="max-temp">--°C</span>
+                /
+                <span class="min-temp">--°C</span>
+              </p>
+            </li>
+
+            <li class="forecast-day">
+              <h3 class="forecast-date" id="day-3">Wed</h3>
+              <img
+                src="assets/icons/sunny.png"
+                alt="Sunny"
+                class="forecast-icon"
+              />
+              <p class="forecast-condition">Sunny</p>
+              <p class="forecast-temp">
+                <span class="max-temp">--°C</span>
+                /
+                <span class="min-temp">--°C</span>
+              </p>
+            </li>
+
+            <li class="forecast-day">
+              <h3 class="forecast-date" id="day-4">Thu</h3>
+              <img
+                src="assets/icons/rainy.png"
+                alt="Rainy"
+                class="forecast-icon"
+              />
+              <p class="forecast-condition">Rainy</p>
+              <p class="forecast-temp">
+                <span class="max-temp">--°C</span>
+                /
+                <span class="min-temp">--°C</span>
+              </p>
+            </li>
+
+            <li class="forecast-day">
+              <h3 class="forecast-date" id="day-5">Fri</h3>
+              <img
+                src="assets/icons/partly-cloudy.png"
+                alt="Cloudy"
+                class="forecast-icon"
+              />
+              <p class="forecast-condition">Cloudy</p>
+              <p class="forecast-temp">
+                <span class="max-temp">--°C</span>
+                /
+                <span class="min-temp">--°C</span>
+              </p>
+            </li>
           </ul>
         </section>
       </main>
       <!-- Footer -->
-      <footer>Created By &copy;Laxman Singh</footer>
+      <footer class="footer">
+        <p>Created by &copy; Laxman Singh</p>
+        <p>Weather data provided by Open-Meteo</p>
+      </footer>
     </div>
+    <script type="module" src="Js/main.js" defer></script>
   </body>
 </html>

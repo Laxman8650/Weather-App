@@ -10,7 +10,8 @@ import {
     weatherCondition,
     searchResult,
     loadingEffect,
-    todayDate
+    todayDate,
+    myLocation
 } from "./dom.js";
 import { getForecastData, getWeatherData } from "./api.js";
 import { displayCurrentWeather, getWeatherCondition, showWeatherIcon, showForecast, showsearchResult} from "./weather.js";
@@ -65,3 +66,35 @@ searchInput.addEventListener("input", async ()=>{
             todayDate.textContent = `${date}/${month}/${year}`;
         });
 });
+              myLocation.addEventListener("click", ()=>{
+                console.log("Button clicked");
+              navigator.geolocation.getCurrentPosition(
+                async (position)=>{
+                console.log("Success");
+                loadingEffect.classList.add("active");
+                try{
+                const newData = await  getForecastData(position.coords.latitude, position.coords.longitude);
+                displayCurrentWeather(newData);
+                showForecast(newData);
+                getWeatherCondition(newData);
+                showWeatherIcon(newData.current.weather_code, newData.current.is_day);
+                }  
+                catch(err){
+                     console.log("Error Message:", err.message);
+                }
+               finally{
+                   loadingEffect.classList.remove("active");
+                 }
+                },
+                 (error) => {
+                  console.log(error.code);
+                  console.log(error.message);
+                },
+
+                {
+                enableHighAccuracy: false,
+                    timeout: 30000,
+                    maximumAge: 60000
+                }
+             );
+            });

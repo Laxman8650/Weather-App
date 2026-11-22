@@ -2,6 +2,7 @@ export const searchInput = document.querySelector(".overlay-search-input");
 export const searchCloseBtn = document.querySelector(".search-close-btn");
 export const openSearchBtn = document.querySelector("#open-search");
 export const searchOverlay = document.querySelector(".search-overlay");
+export const myLocation = document.querySelector(".my-location")
 export const todayDate= document.querySelector("#date");
 export const cityLocation = document.querySelector("#city-location")
 export const cityName = document.querySelector("#city-name");

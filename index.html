@@ -61,6 +61,21 @@
 
       <!-- Main Content -->
       <main class="main-container">
+        <div class="error-modal">
+          <div class="error-container">
+            <span class="location-error"
+              ><i class="fa-solid fa-location-dot"></i
+            ></span>
+            <h2>Location Unavailable</h2>
+            <p id="error-msg">
+              We couldn't detect your current location. Please try again.
+            </p>
+            <div class="warning-btn">
+              <button type="button" id="try-again">Try Again</button>
+              <button type="button" id="close-btn">Close</button>
+            </div>
+          </div>
+        </div>
         <div class="loading">
           <div class="spinner-element"></div>
           <p class="loading-text">Loading Weather</p>

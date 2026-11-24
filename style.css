@@ -171,7 +171,7 @@ text-shadow:
 #error-msg{
     font-size: 0.9rem;
     color: var(--color-text);
-    font-weight: 500;
+    font-weight: 650;
     line-height: 1.5;
     margin-block: 0.5rem;
 }
@@ -231,7 +231,6 @@ text-shadow:
 .error-modal.active .location-error {
     animation: fadeSlide 0.5s ease 0.2s both;
 }
-
 .error-modal.active h2 {
     animation: fadeSlide 0.5s ease 0.4s both;
 }

@@ -11,9 +11,14 @@ import {
     searchResult,
     loadingEffect,
     todayDate,
-    myLocation
+    myLocation,
+    closeBtn,
+    errorModal,
+    tryAgain,
+    errorMsg,
+    errorTitle
 } from "./dom.js";
-import { getForecastData, getWeatherData } from "./api.js";
+import { getForecastData, getLocationName, getWeatherData } from "./api.js";
 import { displayCurrentWeather, getWeatherCondition, showWeatherIcon, showForecast, showsearchResult} from "./weather.js";
     
     openSearchBtn.addEventListener("click", () => {
@@ -29,10 +34,11 @@ searchOverlay.addEventListener("mouseover", (event) => {
         searchOverlay.classList.remove("active");
     }
 });
+closeBtn.addEventListener("click", ()=>{
+    errorModal.classList.remove("active");
+});
 searchInput.addEventListener("input", async ()=>{
-   
      let city = searchInput.value.trim();
-
     if(city === ""){
      searchResult.innerHTML ="";
      return;
@@ -66,35 +72,72 @@ searchInput.addEventListener("input", async ()=>{
             todayDate.textContent = `${date}/${month}/${year}`;
         });
 });
-              myLocation.addEventListener("click", ()=>{
-                console.log("Button clicked");
-              navigator.geolocation.getCurrentPosition(
+             function showError(message, title){
+                errorModal.classList.add("active");
+                errorMsg.textContent = message;
+                errorTitle.textContent = title;
+            }
+
+            function getUserLocation(){
+               navigator.geolocation.getCurrentPosition(
                 async (position)=>{
                 console.log("Success");
                 loadingEffect.classList.add("active");
+
+               try{
+                const userData = await getLocationName(position.coords.latitude, position.coords.longitude);
+                console.log(userData);
+                const locationName = userData.address.city || userData.address.town || userData.address.village || userData.address.county ||  userData.address.state || "Current Location" ;
+                cityName.textContent = locationName;
+                cityLocation.textContent = locationName;
+               }
+               catch(error){
+                console.log("Location name error:", error.message);
+                 cityName.textContent = "Current Location";
+                 cityLocation.textContent = "Current Location";
+               }
+
                 try{
-                const newData = await  getForecastData(position.coords.latitude, position.coords.longitude);
+                const newData = await  getForecastData(position.coords.latitude, position.coords.longitude); 
                 displayCurrentWeather(newData);
                 showForecast(newData);
                 getWeatherCondition(newData);
                 showWeatherIcon(newData.current.weather_code, newData.current.is_day);
                 }  
-                catch(err){
-                     console.log("Error Message:", err.message);
+                catch(error){
+                    console.log("Fetch error:", error.message);
+                    showError("Unable to fetch weather data. Please try again",
+                        "Weather Unavailable"
+                    );
                 }
-               finally{
+                finally{
                    loadingEffect.classList.remove("active");
                  }
                 },
                  (error) => {
+                 showError("Unable to detect your current location.",
+                    "Location Unavailable");
                   console.log(error.code);
                   console.log(error.message);
                 },
 
                 {
                 enableHighAccuracy: false,
-                    timeout: 30000,
+                    timeout: 20000,
                     maximumAge: 60000
                 }
              );
+ }
+
+            myLocation.addEventListener("click", ()=>{
+                console.log("Button clicked");
+                getUserLocation();
             });
+             tryAgain.addEventListener("click", ()=>{
+               errorModal.classList.remove("active");
+                getUserLocation();
+            });
+         
+            
+
+            

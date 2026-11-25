@@ -16,7 +16,8 @@ import {
     errorModal,
     tryAgain,
     errorMsg,
-    errorTitle
+    errorTitle,
+    locationBtn
 } from "./dom.js";
 import { getForecastData, getLocationName, getWeatherData } from "./api.js";
 import { displayCurrentWeather, getWeatherCondition, showWeatherIcon, showForecast, showsearchResult} from "./weather.js";
@@ -60,18 +61,23 @@ searchInput.addEventListener("input", async ()=>{
             showForecast(forecastData);
             getWeatherCondition(forecastData);
             showWeatherIcon(forecastData.current.weather_code, forecastData.current.is_day);
+             updateDate(forecastData);
             cityName.textContent = place.name;
             cityLocation.textContent= place.name;
             loadingEffect.classList.remove("active");
             searchInput.value= "";
             searchResult.innerHTML ="";  
-            const now = new Date();
-            const date = now.getDate();
-             const month = now.getMonth() +1;
-              const year = now.getFullYear();
-            todayDate.textContent = `${date}/${month}/${year}`;
+           
         });
 });
+          
+             
+            function updateDate(newData){
+                const localDate = newData.current.time.split("T")[0];
+                const [year, month, day] = localDate.split("-");
+                todayDate.textContent =`${day}/${month}/${year}`;
+            }
+
              function showError(message, title){
                 errorModal.classList.add("active");
                 errorMsg.textContent = message;
@@ -83,11 +89,13 @@ searchInput.addEventListener("input", async ()=>{
                 async (position)=>{
                 console.log("Success");
                 loadingEffect.classList.add("active");
-
+                locationBtn.innerText = "Refresh Location";
+            try{
                try{
                 const userData = await getLocationName(position.coords.latitude, position.coords.longitude);
                 console.log(userData);
-                const locationName = userData.address.city || userData.address.town || userData.address.village || userData.address.county ||  userData.address.state || "Current Location" ;
+                const address = userData.address || {};
+                const locationName = address.city || address.town || address.village || address.county ||  address.state || "Current Location" ;
                 cityName.textContent = locationName;
                 cityLocation.textContent = locationName;
                }
@@ -96,9 +104,9 @@ searchInput.addEventListener("input", async ()=>{
                  cityName.textContent = "Current Location";
                  cityLocation.textContent = "Current Location";
                }
-
                 try{
                 const newData = await  getForecastData(position.coords.latitude, position.coords.longitude); 
+                updateDate(newData);
                 displayCurrentWeather(newData);
                 showForecast(newData);
                 getWeatherCondition(newData);
@@ -110,13 +118,17 @@ searchInput.addEventListener("input", async ()=>{
                         "Weather Unavailable"
                     );
                 }
+            }
                 finally{
                    loadingEffect.classList.remove("active");
+                     locationBtn.disabled = false;
                  }
                 },
                  (error) => {
                  showError("Unable to detect your current location.",
-                    "Location Unavailable");
+                 "Location Unavailable");
+                 locationBtn.disabled = false;
+                 locationBtn.innerText = originalText;
                   console.log(error.code);
                   console.log(error.message);
                 },
@@ -128,13 +140,17 @@ searchInput.addEventListener("input", async ()=>{
                 }
              );
  }
-
-            myLocation.addEventListener("click", ()=>{
-                console.log("Button clicked");
-                getUserLocation();
+        const originalText = locationBtn.innerText;
+          myLocation.addEventListener("click", ()=>{
+            locationBtn.disabled = true;
+            locationBtn.innerText ="Processing...";
+                getUserLocation();    
+                         
             });
              tryAgain.addEventListener("click", ()=>{
                errorModal.classList.remove("active");
+               locationBtn.disabled = true;
+               locationBtn.innerText = "Processing...";
                 getUserLocation();
             });
          

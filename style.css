@@ -52,6 +52,23 @@ body{
 .logo >img{
     width: 100px;
 }
+
+
+/* Processing state */
+.my-location:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+/* Keyboard accessibility */
+.my-location:focus-visible {
+    outline: 2px solid var(--color-muted);
+    outline-offset: 4px;
+}
+
+
 .current-date{
    
     font-weight: 500;
@@ -63,7 +80,6 @@ body{
     padding-right: 0.3rem;
 }
 .location{
-  
     font-weight: 500;
     color:var(--color-muted);
 }
@@ -119,8 +135,8 @@ body{
      box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
      color:var(--color-text);
     display: flex;
-   flex-direction: column;
-   align-items: center;
+    flex-direction: column;
+    align-items: center;
     transform: scale(0.8);
     transition: transform 0.5s ease;
 }
@@ -267,6 +283,8 @@ text-shadow:
     visibility: hidden;
     transition: opacity 0.3s ease, visibility 0.3s ease;
 }
+
+
 .loading.active {
     opacity: 1;
     visibility: visible;

@@ -25,3 +25,4 @@ export const errorModal = document.querySelector(".error-modal");
 export const tryAgain = document.querySelector("#try-again");
 export const errorMsg = document.querySelector("#error-msg");
 export const errorTitle = document.querySelector("#error-title");
+export const locationBtn = document.getElementById("my-location");

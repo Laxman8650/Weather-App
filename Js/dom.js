@@ -6,7 +6,6 @@ export const myLocation = document.querySelector(".my-location")
 export const todayDate= document.querySelector("#date");
 export const cityLocation = document.querySelector("#city-location")
 export const cityName = document.querySelector("#city-name");
-export const currentTemp = document.querySelector("#current-temp");
 export const currentWeatherIcon = document.querySelector("#current-weather-icon");
 export const weatherCondition = document.querySelector("#weather-condition");
 export const tempNumber = document.querySelector(".temp-number");
